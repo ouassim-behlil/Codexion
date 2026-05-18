@@ -56,7 +56,7 @@ static int	check_coders(t_sim *sim, int *n)
 		coder = sim->coders[i];
 		if (check_burnout(coder) != 0)
 		{
-			log_msg(coder, "Burnout");
+			log_msg(coder, "burned out");
 			pthread_mutex_lock(&sim->log_lock);
 			sim->stop = 1;
 			pthread_mutex_unlock(&sim->log_lock);

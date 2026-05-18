@@ -6,8 +6,8 @@ static int	compile(t_coder *coder)
 
 	coder->attempt_start_ms = get_time_ms();
 	request_dongles(coder, coder->sim);
-	log_msg(coder, "has taken dongle");
-	log_msg(coder, "has taken dongle");
+	log_msg(coder, "has taken a dongle");
+	log_msg(coder, "has taken a dongle");
 	log_msg(coder, "is compiling");
 	now = get_time_ms();
 	pthread_mutex_lock(&coder->lock);
@@ -31,9 +31,6 @@ static void	refactor(t_coder *coder)
 {
 	log_msg(coder, "is refactoring");
 	sleep_until_ms(get_time_ms() + coder->sim->time_to_refactor, coder->sim);
-	pthread_mutex_lock(&coder->lock);
-	coder->compiles_done += 1;
-	pthread_mutex_unlock(&coder->lock);
 }
 
 void	*coder_routine(void *arg)
