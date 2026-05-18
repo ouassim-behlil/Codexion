@@ -53,7 +53,7 @@ void	request_dongles(t_coder *c, t_sim *sim)
 
 	first = sim->dongles[c->left_dongle_id - 1];
 	last = sim->dongles[c->right_dongle_id - 1];
-	if (c->id % 2 == 0)
+	if (c->id % 2 != 0)
 	{
 		first = sim->dongles[c->right_dongle_id - 1];
 		last = sim->dongles[c->left_dongle_id - 1];
