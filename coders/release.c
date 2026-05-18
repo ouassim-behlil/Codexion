@@ -6,8 +6,8 @@ static void	release_dongle(t_dongle *dongle, t_sim *sim)
 	dongle->not_available_until_ms = get_time_ms() + sim->dongle_cooldown;
 	dongle->held = 0;
 	heap_delete(&dongle->heap);
-	pthread_mutex_unlock(&dongle->lock);
 	pthread_cond_broadcast(&dongle->cv);
+	pthread_mutex_unlock(&dongle->lock);
 }
 
 void	release_dongles(t_coder *coder)

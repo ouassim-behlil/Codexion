@@ -14,6 +14,9 @@ static int	compile(t_coder *coder)
 	coder->last_compile_start_ms = now;
 	pthread_mutex_unlock(&coder->lock);
 	sleep_until_ms(now + coder->sim->time_to_compile, coder->sim);
+	pthread_mutex_lock(&coder->lock);
+	coder->compiles_done += 1;
+	pthread_mutex_unlock(&coder->lock);
 	release_dongles(coder);
 	return (0);
 }
