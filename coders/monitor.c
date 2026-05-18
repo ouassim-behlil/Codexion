@@ -64,7 +64,8 @@ static int	check_coders(t_sim *sim, int *n)
 			return (-1);
 		}
 		pthread_mutex_lock(&coder->lock);
-		(*n) += coder->compiles_done;
+		if (coder->compiles_done < sim->compiles_required)
+			*n = 1;
 		pthread_mutex_unlock(&coder->lock);
 		i++;
 	}
@@ -86,8 +87,10 @@ void	*monitor_routine(void *arg)
 		{
 			return (NULL);
 		}
-		if (n >= sim->n_coders * sim->compiles_required)
+		if (n == 0)
+		{
 			return (NULL);
+		}
 		usleep(500);
 	}
 }

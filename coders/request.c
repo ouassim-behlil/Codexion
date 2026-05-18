@@ -23,6 +23,12 @@ static void	request_dongle(t_coder *c, t_dongle *d, t_sim *sim)
 
 	pthread_mutex_lock(&d->lock);
 	push_request(c, d);
+	if (sim->scheduler == POLICY_EDF)
+	{
+		pthread_mutex_unlock(&d->lock);
+		usleep(500);
+		pthread_mutex_lock(&d->lock);
+	}
 	while (
 		d->held == 1
 		|| heap_peek(&d->heap) != c->id
