@@ -1,4 +1,4 @@
-#include "include/codexion.h"
+#include "../include/codexion.h"
 
 void	print_error(t_error_code err)
 {

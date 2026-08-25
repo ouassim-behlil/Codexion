@@ -1,4 +1,4 @@
-#include "include/codexion.h"
+#include "../include/codexion.h"
 #define BASE_DEC 10
 
 static t_error_code	parse_long(const char *s, long *out)

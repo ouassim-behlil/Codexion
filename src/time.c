@@ -1,4 +1,4 @@
-#include "include/codexion.h"
+#include "../include/codexion.h"
 
 long	get_time_ms(void)
 {
@@ -16,7 +16,7 @@ void	sleep_until_ms(long until_ms, t_sim *sim)
 	{
 		if (is_stopped(sim) == 1)
 			return ;
-		usleep(500);
+		usleep(50);
 	}
 }
 

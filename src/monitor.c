@@ -1,4 +1,4 @@
-#include "include/codexion.h"
+#include "../include/codexion.h"
 
 int	is_stopped(t_sim *sim)
 {

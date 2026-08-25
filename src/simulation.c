@@ -1,4 +1,4 @@
-#include "include/codexion.h"
+#include "../include/codexion.h"
 
 int	init_simulation(t_sim *sim, int ac, const char **av)
 {

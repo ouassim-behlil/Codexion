@@ -1,11 +1,12 @@
-#include "include/codexion.h"
+#include "../include/codexion.h"
 
 static int	compile(t_coder *coder)
 {
 	long	now;
 
 	coder->attempt_start_ms = get_time_ms();
-	request_dongles(coder, coder->sim);
+	if (request_dongles(coder, coder->sim) != 0)
+		return (-1);
 	log_msg(coder, "has taken a dongle");
 	log_msg(coder, "has taken a dongle");
 	log_msg(coder, "is compiling");

@@ -119,7 +119,7 @@ void		signal_stop(t_sim *sim);
 void		*monitor_routine(void *arg);
 
 // request.c
-void		request_dongles(t_coder *c, t_sim *sim);
+int		request_dongles(t_coder *c, t_sim *sim);
 
 // release.c
 void		release_dongles(t_coder *coder);
@@ -132,7 +132,7 @@ void		log_msg(t_coder *coder, const char *msg);
 
 // heap.c
 void		heap_insert(t_heap *heap, t_request req);
-void		heap_delete(t_heap *heap);
 int			heap_peek(t_heap *heap);
+void	heap_remove_by_id(t_heap *heap, int coder_id);
 
 #endif

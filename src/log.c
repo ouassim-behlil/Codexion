@@ -1,4 +1,4 @@
-#include "include/codexion.h"
+#include "../include/codexion.h"
 
 void	log_msg(t_coder *coder, const char *msg)
 {

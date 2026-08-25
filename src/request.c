@@ -1,4 +1,4 @@
-#include "include/codexion.h"
+#include "../include/codexion.h"
 
 static void	push_request(t_coder *coder, t_dongle *dongle)
 {
@@ -7,11 +7,14 @@ static void	push_request(t_coder *coder, t_dongle *dongle)
 	long			key;
 
 	key = get_time_ms();
+	// printf("coder %d made a request at %ld for dongle %d\n", coder->id, key - coder->sim->start_ms, dongle->id);
 	req.coder_id = coder->id;
 	scheduler = coder->sim->scheduler;
 	if (scheduler == POLICY_EDF)
 	{
-		key = coder->last_compile_start_ms + coder->sim->dongle_cooldown;
+		pthread_mutex_lock(&coder->lock);
+		key = coder->last_compile_start_ms + coder->sim->time_to_burnout;
+		pthread_mutex_unlock(&coder->lock);
 	}
 	req.key = key;
 	heap_insert(&dongle->heap, req);
@@ -26,7 +29,7 @@ static void	request_dongle(t_coder *c, t_dongle *d, t_sim *sim)
 	if (sim->scheduler == POLICY_EDF)
 	{
 		pthread_mutex_unlock(&d->lock);
-		usleep(500);
+		usleep(50);
 		pthread_mutex_lock(&d->lock);
 	}
 	while (
@@ -52,7 +55,7 @@ static void	request_dongle(t_coder *c, t_dongle *d, t_sim *sim)
 	pthread_mutex_unlock(&d->lock);
 }
 
-void	request_dongles(t_coder *c, t_sim *sim)
+int	request_dongles(t_coder *c, t_sim *sim)
 {
 	t_dongle	*first;
 	t_dongle	*last;
@@ -64,6 +67,10 @@ void	request_dongles(t_coder *c, t_sim *sim)
 		first = sim->dongles[c->right_dongle_id - 1];
 		last = sim->dongles[c->left_dongle_id - 1];
 	}
+
 	request_dongle(c, first, sim);
+	if (last == first)
+		return (-1);
 	request_dongle(c, last, sim);
+	return (0);
 }
