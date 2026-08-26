@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   release.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obehlil <obehlil@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/26 11:12:02 by obehlil           #+#    #+#             */
+/*   Updated: 2026/08/26 11:36:24 by obehlil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/codexion.h"
 
 static void	release_dongle(t_dongle *dongle, t_sim *sim, t_coder *coder)
@@ -20,5 +32,3 @@ void	release_dongles(t_coder *coder)
 	release_dongle(left, coder->sim, coder);
 	release_dongle(right, coder->sim, coder);
 }
-
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obehlil <obehlil@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/26 11:11:57 by obehlil           #+#    #+#             */
+/*   Updated: 2026/08/26 11:36:55 by obehlil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/codexion.h"
 
 int	is_stopped(t_sim *sim)
@@ -35,7 +47,6 @@ void	signal_stop(t_sim *sim)
 	int		i;
 
 	i = 0;
-	
 	while (i < sim->n_dongles)
 	{
 		pthread_mutex_lock(&sim->dongles[i]->lock);

@@ -60,9 +60,3 @@ make
 - `coders/` — source files and headers.  
 - `Makefile` — build rules.  
 - `README.md` — this file.  
-
-
-
-# Notes for evaluators and maintainers
-- The program follows the Norm and forbids global variables; shared state is encapsulated in structs passed to threads.  
-- All heap allocations are freed on termination.  

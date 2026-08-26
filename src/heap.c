@@ -1,23 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heap.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obehlil <obehlil@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/26 11:11:46 by obehlil           #+#    #+#             */
+/*   Updated: 2026/08/26 11:45:11 by obehlil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/codexion.h"
-
-static void	swap(t_request *req1, t_request *req2)
-{
-	t_request		temp_req;
-
-	if (req1 == req2)
-	{
-		return ;
-	}
-	temp_req = *req1;
-	*req1 = *req2;
-	*req2 = temp_req;
-}
 
 void	heap_insert(t_heap *heap, t_request req)
 {
 	int			idx;
 	int			parent_idx;
 	t_request	*requests;
+	t_request	temp;
 
 	requests = heap->requests;
 	requests[heap->size] = req;
@@ -25,7 +25,9 @@ void	heap_insert(t_heap *heap, t_request req)
 	parent_idx = (idx - 1) / 2;
 	while (idx > 0 && requests[idx].key < requests[parent_idx].key)
 	{
-		swap(&requests[idx], &requests[parent_idx]);
+		temp = requests[idx];
+		requests[idx] = requests[parent_idx];
+		requests[parent_idx] = temp;
 		idx = parent_idx;
 		parent_idx = (idx - 1) / 2;
 	}
@@ -36,12 +38,15 @@ static void	heapify_up(t_heap *heap, int idx)
 {
 	int			parent_idx;
 	t_request	*requests;
+	t_request	temp;
 
 	requests = heap->requests;
 	parent_idx = (idx - 1) / 2;
 	while (idx > 0 && requests[idx].key < requests[parent_idx].key)
 	{
-		swap(&requests[idx], &requests[parent_idx]);
+		temp = requests[idx];
+		requests[idx] = requests[parent_idx];
+		requests[parent_idx] = temp;
 		idx = parent_idx;
 		parent_idx = (idx - 1) / 2;
 	}
@@ -53,6 +58,7 @@ static void	heapify_down_from(t_heap *heap, int idx)
 	int			right;
 	int			smallest;
 	t_request	*requests;
+	t_request	temp;
 
 	requests = heap->requests;
 	while (idx < heap->size)
@@ -66,7 +72,9 @@ static void	heapify_down_from(t_heap *heap, int idx)
 			smallest = right;
 		if (smallest == idx)
 			return ;
-		swap(&requests[smallest], &requests[idx]);
+		temp = requests[smallest];
+		requests[smallest] = requests[idx];
+		requests[idx] = temp;
 		idx = smallest;
 	}
 }
@@ -90,8 +98,6 @@ void	heap_remove_by_id(t_heap *heap, int coder_id)
 	heapify_down_from(heap, idx);
 }
 
-
-// heap_peek returns the coder id at the root of the heap
 int	heap_peek(t_heap *heap)
 {
 	if (heap->size == 0)

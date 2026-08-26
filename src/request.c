@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   request.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obehlil <obehlil@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/26 11:12:06 by obehlil           #+#    #+#             */
+/*   Updated: 2026/08/26 11:46:28 by obehlil          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/codexion.h"
 
 static void	push_request(t_coder *coder, t_dongle *dongle)
@@ -7,7 +19,6 @@ static void	push_request(t_coder *coder, t_dongle *dongle)
 	long			key;
 
 	key = get_time_ms();
-	// printf("coder %d made a request at %ld for dongle %d\n", coder->id, key - coder->sim->start_ms, dongle->id);
 	req.coder_id = coder->id;
 	scheduler = coder->sim->scheduler;
 	if (scheduler == POLICY_EDF)
@@ -25,7 +36,6 @@ static void	request_dongle(t_coder *c, t_dongle *d, t_sim *sim)
 	t_timespec		timeout;
 
 	pthread_mutex_lock(&d->lock);
-	//push_request(c, d);
 	while (
 		d->held == 1
 		|| heap_peek(&d->heap) != c->id
@@ -61,7 +71,6 @@ int	request_dongles(t_coder *c, t_sim *sim)
 		first = sim->dongles[c->right_dongle_id - 1];
 		last = sim->dongles[c->left_dongle_id - 1];
 	}
-
 	if (last == first)
 		return (-1);
 	pthread_mutex_lock(&first->lock);
