@@ -25,13 +25,7 @@ static void	request_dongle(t_coder *c, t_dongle *d, t_sim *sim)
 	t_timespec		timeout;
 
 	pthread_mutex_lock(&d->lock);
-	push_request(c, d);
-	if (sim->scheduler == POLICY_EDF)
-	{
-		pthread_mutex_unlock(&d->lock);
-		usleep(50);
-		pthread_mutex_lock(&d->lock);
-	}
+	//push_request(c, d);
 	while (
 		d->held == 1
 		|| heap_peek(&d->heap) != c->id
@@ -68,9 +62,15 @@ int	request_dongles(t_coder *c, t_sim *sim)
 		last = sim->dongles[c->left_dongle_id - 1];
 	}
 
-	request_dongle(c, first, sim);
 	if (last == first)
 		return (-1);
+	pthread_mutex_lock(&first->lock);
+	push_request(c, first);
+	pthread_mutex_unlock(&first->lock);
+	pthread_mutex_lock(&last->lock);
+	push_request(c, last);
+	pthread_mutex_unlock(&last->lock);
+	request_dongle(c, first, sim);
 	request_dongle(c, last, sim);
 	return (0);
 }

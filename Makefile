@@ -21,8 +21,8 @@ OBJ = $(SRC:.c=.o)
 
 HEADER = $(INC_DIR)/codexion.h
 
-CC = gcc-12
-CFLAGS = -Wall -Wextra -Werror -pthread -g -O0 -I$(INC_DIR)
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -pthread -I$(INC_DIR)
 
 all: $(NAME)
 

@@ -1,4 +1,4 @@
-# *This project has been created as part of the 42 curriculum by obehlil.*
+_This project has been created as part of the 42 curiculum by obehlil._
 
 ### Description
 **Codexion** is a POSIX-threads simulation of coders competing for scarce USB dongles to compile quantum code. The program models concurrency, resource arbitration (FIFO and EDF), dongle cooldowns, and precise burnout detection to exercise synchronization, liveness, and scheduling policies. 
@@ -12,7 +12,6 @@
 
 ## Build
 ```sh
-cd coders
 make
 ```
 
